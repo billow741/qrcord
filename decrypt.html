@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR码解密工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        textarea, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        .password-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .password-container input[type="password"],
+        .password-container input[type="text"] {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        .password-toggle-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            display: none;
+        }
+        .error {
+            color: #ff0000;
+            margin-top: 10px;
+            display: none;
+        }
+        .instructions {
+            background-color: #e7f3fe;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .debug {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+        .debug pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR码解密工具</h1>
+        
+        <div class="instructions">
+            <h3>使用说明：</h3>
+            <ol>
+                <li>将加密的QR码数据粘贴到"加密数据"输入框</li>
+                <li>输入解密密码</li>
+                <li>点击"解密"按钮</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <h3>注意事项：</h3>
+            <ul>
+                <li>加密数据必须以"ENC:"开头</li>
+                <li>请确保完整复制加密数据，不要漏掉任何字符</li>
+                <li>密码必须与加密时使用的密码完全一致</li>
+            </ul>
+        </div>
+
+        <div class="input-group">
+            <label for="encryptedData">加密数据：</label>
+            <textarea id="encryptedData" rows="4" placeholder="请粘贴加密的QR码数据..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="password">解密密码：</label>
+            <div class="password-container">
+                <input type="password" id="password" placeholder="请输入解密密码">
+                <span class="password-toggle-label">
+                    <input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()">
+                    <span style="margin-left:2px;">显示密码</span>
+                </span>
+            </div>
+        </div>
+
+        <button onclick="decryptData()">解密</button>
+
+        <div id="error" class="error"></div>
+        <div id="result"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="decrypt.js"></script>
+</body>
+</html> 
