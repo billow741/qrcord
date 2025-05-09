@@ -40,7 +40,6 @@ Thumbs.db
 *.jpg
 *.jpeg
 *.bmp
-*.exe
 
 # Python
 __pycache__/
