@@ -378,9 +378,20 @@ class QRCodeGeneratorApp:
             qr.make(fit=True)
             
             # 处理透明背景
-            if back_color == TRANSPARENT_COLOR:
+            if self.transparent_var.get():
                 # 先生成白色背景的二维码
                 img_pil = qr.make_image(fill_color=fill_color, back_color="#FFFFFF")
+                # 将白色背景转换为透明
+                img_pil = img_pil.convert("RGBA")
+                data = img_pil.getdata()
+                new_data = []
+                for item in data:
+                    # 如果像素是白色，则设置为透明
+                    if item[0] == 255 and item[1] == 255 and item[2] == 255:
+                        new_data.append((255, 255, 255, 0))
+                    else:
+                        new_data.append(item)
+                img_pil.putdata(new_data)
             else:
                 img_pil = qr.make_image(fill_color=fill_color, back_color=back_color)
 
@@ -453,9 +464,20 @@ class QRCodeGeneratorApp:
             qr.make(fit=True)
             
             # 处理透明背景
-            if back_color == TRANSPARENT_COLOR:
+            if self.transparent_var.get():
                 # 先生成白色背景的二维码
                 img_pil = qr.make_image(fill_color=fill_color, back_color="#FFFFFF")
+                # 将白色背景转换为透明
+                img_pil = img_pil.convert("RGBA")
+                data = img_pil.getdata()
+                new_data = []
+                for item in data:
+                    # 如果像素是白色，则设置为透明
+                    if item[0] == 255 and item[1] == 255 and item[2] == 255:
+                        new_data.append((255, 255, 255, 0))
+                    else:
+                        new_data.append(item)
+                img_pil.putdata(new_data)
             else:
                 img_pil = qr.make_image(fill_color=fill_color, back_color=back_color)
 
