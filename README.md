@@ -62,7 +62,22 @@ python qr_generator_gui.py
 ## 🔧 技术细节
 
 - 使用 AES-CBC 模式进行加密
-- 采用 SHA-256 进行密钥派生
+- 采用 SHA-256 进行密钥派生// ... existing code ...
+import base64
+
+# --- Version ---
+__version__ = "1.0.0"
+
+# --- Constants ---
+ERROR_LEVELS = {
+// ... existing code ...
+class QRCodeGeneratorApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title(f"二维码生成器 v{__version__} (颜色+多行+预览+密码保护+透明背景)")
+
+        self._after_id = None
+// ... existing code ...
 - 支持 Base64 编码的加密数据
 
 ## 📝 许可证
